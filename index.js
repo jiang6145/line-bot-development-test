@@ -21,13 +21,8 @@ const name = 'TCMSV_alldesc.gz' // 檔案名稱
 const to = cwd
 const from = path.join(cwd, name)
 
-// 監聽 PORT
-bot.listen('/', process.env.PORT, () => {
-  console.log('LINE-BOT 已啟動')
-})
-
 // 下載台北市開放資料停車位 API 的 gz檔
-async function getData () {
+const getTaipeiData = async () => {
   try {
     // Download File
     const result = await axios({
@@ -36,15 +31,34 @@ async function getData () {
       responseType: 'arraybuffer' // 請求到的檔案類型, 如果沒設定為 arraybuffer 下載後則不會是正確的類型
     })
     fs.writeFileSync(from, result.data) // 寫入檔案, 在 Node 環境讀寫檔案要使用 .fs 函式
-    const extract = inly(from, to) // 解壓縮檔案
-
-    // Get Data
+    inly(from, to) // 解壓縮檔案
     const file = fs.readFileSync(cwd + '/TCMSV_alldesc') // 取得解壓縮產生的 TCMSV_alldesc 檔案
     const json = JSON.parse(file)
-    console.log(json)
+    return json
   } catch (error) {
     console.log(error)
     console.log('找不到檔案')
   }
 }
-getData()
+
+// 監聽 PORT
+bot.listen('/', process.env.PORT, () => {
+  console.log('LINE-BOT 已啟動')
+})
+
+bot.on('message', async (event) => {
+  try {
+    const text = event.message.text.trim()
+    const taipeiDatas = await getTaipeiData().then(result => result.data.park)
+    let reply = ''
+
+    taipeiDatas.forEach(data => {
+      if (text === data.name) reply = data.summary
+    })
+    reply = (reply.length === 0) ? '找不到資料' : reply
+    event.reply(reply)
+  } catch (error) {
+    console.log(error)
+    event.reply('發生錯誤')
+  }
+})
