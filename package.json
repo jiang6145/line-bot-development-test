@@ -23,10 +23,10 @@
   },
   "homepage": "https://github.com/jiang6145/line-bot-development-test#readme",
   "dependencies": {
+    "@line/bot-sdk": "^7.1.0",
     "axios": "^0.21.0",
     "cheerio": "^1.0.0-rc.3",
     "dotenv": "^8.2.0",
-    "inly": "^4.0.8",
     "linebot": "^1.6.1"
   },
   "devDependencies": {
