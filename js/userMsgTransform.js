@@ -1,89 +1,93 @@
 // 利用正則表達式將使用者輸入的貨幣訊息轉為所需字串
-const regExps = [
+const controlData = [
   {
     regExp: /^美[金元]$|^USD$/i,
-    exrate: 'USDTWD'
+    exrateKey: 'USDTWD'
   },
   {
     regExp: /^歐[元幣]$|^EUR$/i,
-    exrate: 'USDEUR'
+    exrateKey: 'USDEUR'
   },
   {
     regExp: /^日[幣元圓]$|^JPY$/i,
-    exrate: 'USDJPY'
+    exrateKey: 'USDJPY'
   },
   {
     regExp: /^港[幣元]$|^HKD$/i,
-    exrate: 'USDHKD'
+    exrateKey: 'USDHKD'
   },
   {
     regExp: /^英鎊$|^GBP$/i,
-    exrate: 'USDGBP'
+    exrateKey: 'USDGBP'
   },
   {
     regExp: /^瑞士(法郎|幣)$|^CHF$/i,
-    exrate: 'USDCHF'
+    exrateKey: 'USDCHF'
   },
   {
     regExp: /^人民幣$|^CNY$/i,
-    exrate: 'USDCNY'
+    exrateKey: 'USDCNY'
   },
   {
     regExp: /^韓[幣元]$|^KRW$/i,
-    exrate: 'USDKRW'
+    exrateKey: 'USDKRW'
   },
   {
     regExp: /^澳[幣元]$|^AUD$/i,
-    exrate: 'USDAUD'
+    exrateKey: 'USDAUD'
   },
   {
     regExp: /^紐西蘭[幣元]$|^NZD$/i,
-    exrate: 'USDNZD'
+    exrateKey: 'USDNZD'
   },
   {
     regExp: /^新加坡[幣元]$|^SGD$/i,
-    exrate: 'USDSGD'
+    exrateKey: 'USDSGD'
   },
   {
     regExp: /^泰[銖幣元]$|^THB$/i,
-    exrate: 'USDTHB'
+    exrateKey: 'USDTHB'
   },
   {
     regExp: /^瑞典(克朗|幣)$|^SEK$/i,
-    exrate: 'USDSEK'
+    exrateKey: 'USDSEK'
   },
   {
     regExp: /^馬來西亞幣$|^令吉$|^MYR$/i,
-    exrate: 'USDMYR'
+    exrateKey: 'USDMYR'
   },
   {
     regExp: /^(加拿大|加)[幣元]$|^CAD$/i,
-    exrate: 'USDCAD'
+    exrateKey: 'USDCAD'
   },
   {
     regExp: /^越南[幣盾]$|^VND$/i,
-    exrate: 'USDVND'
+    exrateKey: 'USDVND'
   },
   {
     regExp: /^澳門[幣元]$|^MOP$/i,
-    exrate: 'USDMOP'
+    exrateKey: 'USDMOP'
   },
   {
     regExp: /^菲律賓(披|比)索$|^PHP$/i,
-    exrate: 'USDPHP'
+    exrateKey: 'USDPHP'
   },
   {
     regExp: /^印尼[幣盾]$|^IDR$/i,
-    exrate: 'USDIDR'
+    exrateKey: 'USDIDR'
   },
   {
     regExp: /^南非幣$|^蘭特$|^ZAR$/i,
-    exrate: 'USDZAR'
+    exrateKey: 'USDZAR'
   }
 ]
 
-const infoTransform = (userMessage) => {
-  regExps.forEach((item) => {
-    if (item.regExp.test(userMessage)) return item.exrate
-  })
+export const userMsgTransform = (userMsg) => {
+  const currencyMsg = userMsg.substr(1)
+
+  for (const data of controlData) {
+    if (data.regExp.test(currencyMsg)) {
+      return data.exrateKey
+    }
+  }
 }
