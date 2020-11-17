@@ -1,7 +1,7 @@
 // 圖文選單中查詢匯率的 quick reply
-const searchExrate = {
+export const searchExrateQuickReply = {
   type: 'text',
-  text: '選擇或輸入要查詢的幣別',
+  text: '選擇或輸入 $幣別',
   quickReply: {
     items: [
       {
@@ -9,7 +9,7 @@ const searchExrate = {
         action: {
           type: 'message',
           label: '美金',
-          text: '美金'
+          text: '$美金'
         }
       },
       {
@@ -17,7 +17,7 @@ const searchExrate = {
         action: {
           type: 'message',
           label: '日幣',
-          text: '日幣'
+          text: '$日幣'
         }
       },
       {
@@ -25,7 +25,7 @@ const searchExrate = {
         action: {
           type: 'message',
           label: '英鎊',
-          text: '英鎊'
+          text: '$英鎊'
         }
       },
       {
@@ -33,7 +33,7 @@ const searchExrate = {
         action: {
           type: 'message',
           label: '歐元',
-          text: '歐元'
+          text: '$歐元'
         }
       },
       {
@@ -41,7 +41,7 @@ const searchExrate = {
         action: {
           type: 'message',
           label: '人民幣',
-          text: '人民幣'
+          text: '$人民幣'
         }
       },
       {
@@ -49,7 +49,7 @@ const searchExrate = {
         action: {
           type: 'message',
           label: '港幣',
-          text: '港幣'
+          text: '$港幣'
         }
       },
       {
@@ -57,7 +57,7 @@ const searchExrate = {
         action: {
           type: 'message',
           label: '韓元',
-          text: '韓元'
+          text: '$韓元'
         }
       },
       {
@@ -65,7 +65,7 @@ const searchExrate = {
         action: {
           type: 'message',
           label: '泰銖',
-          text: '泰銖'
+          text: '$泰銖'
         }
       },
       {
@@ -73,7 +73,7 @@ const searchExrate = {
         action: {
           type: 'message',
           label: '新加坡幣',
-          text: '新加坡幣'
+          text: '$新加坡幣'
         }
       },
       {
@@ -81,7 +81,7 @@ const searchExrate = {
         action: {
           type: 'message',
           label: '加拿大幣',
-          text: '加拿大幣'
+          text: '$加拿大幣'
         }
       },
       {
@@ -89,7 +89,7 @@ const searchExrate = {
         action: {
           type: 'message',
           label: '澳幣',
-          text: '澳幣'
+          text: '$澳幣'
         }
       },
       {
@@ -97,7 +97,7 @@ const searchExrate = {
         action: {
           type: 'message',
           label: '瑞典幣',
-          text: '瑞典幣'
+          text: '$瑞典幣'
         }
       },
       {
@@ -105,13 +105,15 @@ const searchExrate = {
         action: {
           type: 'message',
           label: '南非幣',
-          text: '南非幣'
+          text: '$南非幣'
         }
       }
     ]
   }
 }
 
-export default {
-  searchExrate
-}
+// export const exrateFlexReply = () => {
+//   return {
+
+//   }
+// }
