@@ -3,9 +3,9 @@ import linebot from 'linebot'
 import dotenv from 'dotenv'
 import axios from 'axios'
 
-import exrate from './exrate.js'
-import replyTemplate from './replyTemplate.js'
-
+import { searchExrateQuickReply } from './js/replyContent.js'
+import { userMsgTransform } from './js/userMsgTransform.js'
+import { exrateHabdler } from './js/exrate.js'
 // 讀取 .env 設定檔
 dotenv.config()
 
@@ -17,15 +17,20 @@ const bot = linebot({
 })
 
 bot.on('message', async (event) => {
-  const userMessage = event.message.text.trim()
-  if (userMessage === '查詢匯率') {
-    event.reply(replyTemplate.searchExrate)
-  }
+  try {
+    const userMsg = event.message.text.trim()
 
-  // exrate.exrateHabdler(userMessage).then(result => {
-  //   console.log(result)
-  //   event.reply(result.toString())
-  // })
+    if (userMsg === '查詢匯率') return event.reply(searchExrateQuickReply)
+
+    if (userMsg.startsWith('$')) {
+      const currency = userMsgTransform(userMsg)
+      exrateHabdler(currency).then(result => {
+        return event.reply(result)
+      })
+    }
+  } catch (error) {
+    console.log('index.js Error', error)
+  }
 })
 
 // 監聽 PORT
