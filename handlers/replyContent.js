@@ -112,8 +112,88 @@ export const searchExrateQuickReply = {
   }
 }
 
-// export const exrateFlexReply = () => {
-//   return {
-
-//   }
-// }
+export const exrateFlexReply = () => {
+  return {
+    type: 'flex',
+    altText: 'this is a flex message',
+    contents: {
+      type: 'bubble',
+      size: 'kilo',
+      hero: {
+        type: 'box',
+        layout: 'vertical',
+        contents: [
+          {
+            type: 'text',
+            text: '美金',
+            align: 'center',
+            size: 'lg',
+            weight: 'bold',
+            color: '#9D9D9D'
+          },
+          {
+            type: 'text',
+            text: '28.52',
+            size: '4xl',
+            align: 'center'
+          },
+          {
+            type: 'text',
+            text: '2020/11/19',
+            align: 'center',
+            size: 'xs',
+            color: '#9D9D9D'
+          }
+        ],
+        paddingTop: 'xl',
+        paddingBottom: 'none'
+      },
+      body: {
+        type: 'box',
+        layout: 'vertical',
+        contents: [
+          {
+            type: 'separator',
+            color: '#02C874'
+          },
+          {
+            type: 'text',
+            align: 'center',
+            action: {
+              type: 'postback',
+              label: '兌換試算',
+              data: '兌換試算'
+            },
+            text: '兌換試算',
+            weight: 'bold',
+            size: 'md',
+            color: '#02C874',
+            margin: 'xl'
+          },
+          {
+            type: 'separator',
+            color: '#02C874',
+            margin: 'md'
+          },
+          {
+            type: 'text',
+            text: '查詢其它幣別',
+            action: {
+              type: 'postback',
+              label: '查詢其它幣別',
+              data: '查詢其它幣別'
+            },
+            size: 'md',
+            weight: 'bold',
+            align: 'center',
+            color: '#02C874',
+            margin: 'xl'
+          }
+        ],
+        margin: 'none',
+        paddingEnd: 'none',
+        paddingStart: 'none'
+      }
+    }
+  }
+}

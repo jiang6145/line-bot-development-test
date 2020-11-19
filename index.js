@@ -3,9 +3,9 @@ import linebot from 'linebot'
 import dotenv from 'dotenv'
 import axios from 'axios'
 
-import { searchExrateQuickReply } from './js/replyContent.js'
-import { userMsgTransform } from './js/userMsgTransform.js'
-import { exrateHabdler } from './js/exrate.js'
+import { searchExrateQuickReply, exrateFlexReply } from './handlers/replyContent.js'
+import { userMsgTransform } from './handlers/userMsgTransform.js'
+import { exrateHabdler } from './handlers/exrate.js'
 // 讀取 .env 設定檔
 dotenv.config()
 
@@ -25,7 +25,7 @@ bot.on('message', async (event) => {
     if (userMsg.startsWith('$')) {
       const currency = userMsgTransform(userMsg)
       exrateHabdler(currency).then(result => {
-        return event.reply(result)
+        return event.reply(exrateFlexReply())
       })
     }
   } catch (error) {
