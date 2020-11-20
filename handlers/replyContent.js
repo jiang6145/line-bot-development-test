@@ -112,87 +112,154 @@ export const searchExrateQuickReply = {
   }
 }
 
-export const exrateFlexReply = () => {
+export const exrateFlexReply = (currencyName, exrate, updateTime) => {
   return {
     type: 'flex',
     altText: 'this is a flex message',
     contents: {
       type: 'bubble',
-      size: 'kilo',
-      hero: {
-        type: 'box',
-        layout: 'vertical',
-        contents: [
-          {
-            type: 'text',
-            text: '美金',
-            align: 'center',
-            size: 'lg',
-            weight: 'bold',
-            color: '#9D9D9D'
-          },
-          {
-            type: 'text',
-            text: '28.52',
-            size: '4xl',
-            align: 'center'
-          },
-          {
-            type: 'text',
-            text: '2020/11/19',
-            align: 'center',
-            size: 'xs',
-            color: '#9D9D9D'
-          }
-        ],
-        paddingTop: 'xl',
-        paddingBottom: 'none'
-      },
       body: {
         type: 'box',
         layout: 'vertical',
         contents: [
           {
-            type: 'separator',
-            color: '#02C874'
+            type: 'text',
+            text: currencyName,
+            weight: 'bold',
+            size: 'sm',
+            align: 'center',
+            margin: 'none'
           },
           {
             type: 'text',
+            text: exrate,
+            weight: 'bold',
+            size: '3xl',
+            margin: 'lg',
+            align: 'center'
+          },
+          {
+            type: 'text',
+            text: updateTime,
+            size: 'xxs',
+            color: '#aaaaaa',
+            wrap: true,
             align: 'center',
+            margin: 'xl'
+          }
+        ],
+        paddingAll: 'xxl'
+      },
+      footer: {
+        type: 'box',
+        layout: 'vertical',
+        contents: [
+          {
+            type: 'button',
             action: {
               type: 'postback',
-              label: '兌換試算',
-              data: '兌換試算'
-            },
-            text: '兌換試算',
-            weight: 'bold',
-            size: 'md',
-            color: '#02C874',
-            margin: 'xl'
+              label: '金額試算',
+              data: '金額試算'
+            }
           },
           {
             type: 'separator',
-            color: '#02C874',
-            margin: 'md'
+            color: '#FFFFFF'
           },
           {
-            type: 'text',
-            text: '查詢其它幣別',
+            type: 'button',
             action: {
               type: 'postback',
               label: '查詢其它幣別',
               data: '查詢其它幣別'
-            },
-            size: 'md',
-            weight: 'bold',
-            align: 'center',
-            color: '#02C874',
-            margin: 'xl'
+            }
           }
         ],
-        margin: 'none',
-        paddingEnd: 'none',
-        paddingStart: 'none'
+        backgroundColor: '#D1DDDB'
+      },
+      styles: {
+        footer: {
+          separator: true
+        }
+      }
+    }
+  }
+}
+
+export const exchangeFlexReply = (currency, money, exchangeResult) => {
+  return {
+    type: 'flex',
+    altText: 'this is a flex message',
+    contents: {
+      type: 'bubble',
+      body: {
+        type: 'box',
+        layout: 'horizontal',
+        contents: [
+          {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: '台幣',
+                align: 'center',
+                size: 'sm',
+                weight: 'bold',
+                color: '#2980B9'
+              },
+              {
+                type: 'text',
+                text: exchangeResult,
+                align: 'center',
+                size: 'lg',
+                margin: 'md'
+              }
+            ]
+          },
+          {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: '⇄',
+                align: 'center',
+                size: 'xxl',
+                weight: 'bold',
+                color: '#aaaaaa'
+              }
+            ],
+            width: '10%',
+            justifyContent: 'center'
+          },
+          {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: currency,
+                align: 'center',
+                size: 'sm',
+                weight: 'bold',
+                color: '#16A085'
+              },
+              {
+                type: 'text',
+                text: money,
+                align: 'center',
+                size: 'lg',
+                margin: 'md'
+              }
+            ]
+          }
+        ]
+      },
+      styles: {
+        footer: {
+          separator: true
+        }
       }
     }
   }
