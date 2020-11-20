@@ -264,3 +264,68 @@ export const exchangeFlexReply = (currency, money, exchangeResult) => {
     }
   }
 }
+
+export const booksCarouselReply = (bookDatas) => {
+  const reply = {
+    type: 'flex',
+    altText: 'this is a flex message',
+    contents: {
+      type: 'carousel',
+      contents: []
+    }
+  }
+
+  for (const book of bookDatas) {
+    reply.contents.contents.push({
+      type: 'bubble',
+      hero: {
+        type: 'image',
+        url: book.imgLink,
+        size: 'full',
+        aspectRatio: '20:13',
+        aspectMode: 'cover',
+        action: {
+          type: 'uri',
+          uri: book.imgLink
+        }
+      },
+      body: {
+        type: 'box',
+        layout: 'vertical',
+        contents: [
+          {
+            type: 'text',
+            text: book.title,
+            weight: 'bold',
+            size: 'xl'
+          },
+          {
+            type: 'text',
+            text: book.present,
+            size: 'xxs',
+            margin: 'xl',
+            color: '#aaaaaa'
+          }
+        ]
+      },
+      footer: {
+        type: 'box',
+        layout: 'vertical',
+        spacing: 'sm',
+        contents: [
+          {
+            type: 'button',
+            style: 'link',
+            height: 'sm',
+            action: {
+              type: 'uri',
+              label: '前往查看',
+              uri: book.href
+            }
+          }
+        ],
+        flex: 0
+      }
+    })
+  }
+}
