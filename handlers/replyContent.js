@@ -486,3 +486,238 @@ export const newsCarouselReply = (newsDatas) => {
 
   return reply
 }
+
+export const banksFlexReply = (bankDatas) => {
+  const reply = {
+    type: 'flex',
+    altText: 'this is a flex message',
+    contents: {
+      type: 'bubble',
+      body: {
+        type: 'box',
+        layout: 'vertical',
+        contents: [
+          {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'box',
+                layout: 'vertical',
+                contents: [
+                  {
+                    type: 'text',
+                    text: '各家銀行 - 美金牌告匯率',
+                    size: 'xs',
+                    weight: 'bold',
+                    color: '#ffffff',
+                    align: 'center'
+                  }
+                ],
+                paddingTop: 'md',
+                paddingBottom: 'md'
+              },
+              {
+                type: 'separator'
+              },
+              {
+                type: 'box',
+                layout: 'horizontal',
+                contents: [
+                  {
+                    type: 'box',
+                    layout: 'vertical',
+                    contents: [
+                      {
+                        type: 'text',
+                        text: '銀行',
+                        size: 'xs',
+                        align: 'center',
+                        color: '#ffffff',
+                        weight: 'bold'
+                      }
+                    ],
+                    width: '20%'
+                  },
+                  {
+                    type: 'box',
+                    layout: 'vertical',
+                    contents: [
+                      {
+                        type: 'text',
+                        text: '現鈔買入',
+                        size: 'xs',
+                        align: 'center',
+                        color: '#ffffff',
+                        weight: 'bold'
+                      }
+                    ],
+                    width: '20%'
+                  },
+                  {
+                    type: 'box',
+                    layout: 'vertical',
+                    contents: [
+                      {
+                        type: 'text',
+                        text: '現鈔賣出',
+                        size: 'xs',
+                        align: 'center',
+                        color: '#ffffff',
+                        weight: 'bold'
+                      }
+                    ],
+                    width: '20%'
+                  },
+                  {
+                    type: 'box',
+                    layout: 'vertical',
+                    contents: [
+                      {
+                        type: 'text',
+                        text: '即期買入',
+                        size: 'xs',
+                        align: 'center',
+                        color: '#ffffff',
+                        weight: 'bold'
+                      }
+                    ],
+                    width: '20%'
+                  },
+                  {
+                    type: 'box',
+                    layout: 'vertical',
+                    contents: [
+                      {
+                        type: 'text',
+                        text: '即期賣出',
+                        size: 'xs',
+                        align: 'center',
+                        color: '#ffffff',
+                        weight: 'bold'
+                      }
+                    ],
+                    width: '20%'
+                  }
+                ],
+                paddingTop: 'md',
+                paddingBottom: 'md'
+              }
+            ],
+            backgroundColor: '#464F69'
+          },
+          {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+            ]
+          }
+        ],
+        paddingAll: 'none'
+      },
+      size: 'giga'
+    }
+  }
+
+  const length = reply.contents.body.contents.length - 1
+
+  for (let i = 0; i < 31; i++) {
+    reply.contents.body.contents[length].contents.push(
+      {
+        type: 'box',
+        layout: 'horizontal',
+        contents: [
+          {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: bankDatas[i].bank,
+                size: 'xs',
+                align: 'center'
+              }
+            ],
+            width: '20%',
+            paddingAll: 'md'
+          },
+          {
+            type: 'separator',
+            color: '#333333'
+          },
+          {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: bankDatas[i].cashBuy,
+                size: 'xs',
+                align: 'center'
+              }
+            ],
+            width: '20%',
+            paddingAll: 'md'
+          },
+          {
+            type: 'separator',
+            color: '#333333'
+          },
+          {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: bankDatas[i].cashSell,
+                size: 'xs',
+                align: 'center'
+              }
+            ],
+            width: '20%',
+            paddingAll: 'md'
+          },
+          {
+            type: 'separator',
+            color: '#333333'
+          },
+          {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: bankDatas[i].spotBuy,
+                size: 'xs',
+                align: 'center'
+              }
+            ],
+            width: '20%',
+            paddingAll: 'md'
+          },
+          {
+            type: 'separator',
+            color: '#333333'
+          },
+          {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: bankDatas[i].spotSell,
+                size: 'xs',
+                align: 'center'
+              }
+            ],
+            width: '20%',
+            paddingAll: 'md'
+          }
+        ],
+        backgroundColor: (i % 2 === 0) ? '#ffffff' : '#f1faee'
+      }
+    )
+  }
+
+  return reply
+}

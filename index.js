@@ -4,11 +4,12 @@ import numeral from 'numeral'
 import cheerio from 'cheerio'
 import axios from 'axios'
 
-import { searchExrateQuickReply, exrateFlexReply, exchangeFlexReply, booksCarouselReply, newsCarouselReply } from './handlers/replyContent.js'
+import { searchExrateQuickReply, exrateFlexReply, exchangeFlexReply, booksCarouselReply, newsCarouselReply, banksFlexReply } from './handlers/replyContent.js'
 import { userMsgTransform } from './handlers/userMsgTransform.js'
 import { exrateHandler } from './handlers/exrate.js'
 import { booksHandler } from './handlers/books.js'
 import { newsHandler } from './handlers/news.js'
+import { exchangeBankHandler } from './handlers/exchangeBank.js'
 
 // 讀取 .env 設定檔
 dotenv.config()
@@ -21,6 +22,8 @@ const bot = linebot({
 })
 
 const exrateData = {}
+const positiveNum = /^[0-9]+(.[0-9]{1,5})?$/ // regExp => 正數 (包含小數 0~5 位)
+const positiveInteger = /^[0-9]*[1-9][0-9]*$/ // regExp => 正整數
 
 bot.on('message', async (event) => {
   try {
@@ -39,14 +42,14 @@ bot.on('message', async (event) => {
       })
     }
 
-    if (/[0-9]/.test(userMsg) && exrateData) {
+    if (positiveNum.test(userMsg) && exrateData) {
       const money = numeral(userMsg)
       let moneyClone = money.clone()
       let exchangeResult = money.multiply(exrateData.exrate)
 
       // 如果換匯結果為整數, 格式 => 1,000 , 帶有小數時的格式 => 1,000.00 (只取兩位小數)
-      exchangeResult = /^[0-9]*[1-9][0-9]*$/.test(exchangeResult.value()) ? exchangeResult.format('0,0') : exchangeResult.format('0,0.00')
-      moneyClone = /^[0-9]*[1-9][0-9]*$/.test(moneyClone.value()) ? moneyClone.format('0,0') : moneyClone.format('0,0.00')
+      exchangeResult = positiveInteger.test(exchangeResult.value()) ? exchangeResult.format('0,0') : exchangeResult.format('0,0.00')
+      moneyClone = positiveInteger.test(moneyClone.value()) ? moneyClone.format('0,0') : moneyClone.format('0,0.00')
 
       return event.reply(exchangeFlexReply(exrateData.currency, moneyClone, exchangeResult))
     }
@@ -60,6 +63,12 @@ bot.on('message', async (event) => {
     if (userMsg === '外匯相關新聞') {
       newsHandler().then(result => {
         return event.reply(newsCarouselReply(result))
+      })
+    }
+
+    if (userMsg === '最佳換匯銀行') {
+      exchangeBankHandler().then(result => {
+        return event.reply(banksFlexReply(result))
       })
     }
   } catch (error) {
