@@ -1,5 +1,5 @@
 // 利用正則表達式將使用者輸入的貨幣訊息轉為所需字串
-const controlData = [
+const controlDatas = [
   {
     regExp: /^美[金元]$|^USD$/i,
     currencyName: '美金',
@@ -105,7 +105,7 @@ const controlData = [
 export const userMsgTransform = (userMsg) => {
   const currencyMsg = userMsg.substr(1)
 
-  for (const data of controlData) {
+  for (const data of controlDatas) {
     if (data.regExp.test(currencyMsg)) {
       return {
         currencyName: data.currencyName,

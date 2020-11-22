@@ -5,22 +5,24 @@ export const booksHandler = async () => {
   try {
     const bookDatas = []
 
-    const response = await axios.get('https://search.books.com.tw/search/query/cat/all/key/%E5%A4%96%E5%8C%AF%E6%8A%95%E8%B3%87/ms2/ms2_1/sort/9')
+    const response = await axios.get('https://www.books.com.tw/web/sys_bbotm/books/020907/?v=1&o=5')
     const $ = cheerio.load(response.data)
 
-    for (let i = 0; i < 5; i++) {
-      const title = $('.searchbook .item').eq(i).children('a').attr('title')
-      const present = $('.searchbook .item').eq(i).children('p').text()
-      const href = $('.searchbook .item').eq(i).children('a').attr('href')
-      const imgLink = $('.searchbook .item').eq(i).find('.itemcov').attr('data-original')
+    for (let i = 0; bookDatas.length < 10; i++) {
+      const title = $('.mod_a .item').eq(i).find('img.cover').attr('alt')
+      const link = $('.mod_a .item').eq(i).children('a').attr('href')
+
+      let imgSrc = $('.mod_a .item').eq(i).find('img.cover').attr('src')
+      imgSrc = imgSrc.replace('w=170', 'w=348')
+      imgSrc = imgSrc.replace('h=170', 'h=348')
 
       bookDatas.push({
         title,
-        present,
-        href,
-        imgLink
+        link,
+        imgSrc
       })
     }
+
     return bookDatas
   } catch (error) {
     console.log('books.js Error', error)

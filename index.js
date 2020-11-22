@@ -4,10 +4,12 @@ import numeral from 'numeral'
 import cheerio from 'cheerio'
 import axios from 'axios'
 
-import { searchExrateQuickReply, exrateFlexReply, exchangeFlexReply } from './handlers/replyContent.js'
+import { searchExrateQuickReply, exrateFlexReply, exchangeFlexReply, booksCarouselReply, newsCarouselReply } from './handlers/replyContent.js'
 import { userMsgTransform } from './handlers/userMsgTransform.js'
 import { exrateHandler } from './handlers/exrate.js'
 import { booksHandler } from './handlers/books.js'
+import { newsHandler } from './handlers/news.js'
+
 // 讀取 .env 設定檔
 dotenv.config()
 
@@ -37,7 +39,7 @@ bot.on('message', async (event) => {
       })
     }
 
-    if (/[0-9]/.test(userMsg)) {
+    if (/[0-9]/.test(userMsg) && exrateData) {
       const money = numeral(userMsg)
       let moneyClone = money.clone()
       let exchangeResult = money.multiply(exrateData.exrate)
@@ -51,7 +53,13 @@ bot.on('message', async (event) => {
 
     if (userMsg === '外匯理財暢銷書') {
       booksHandler().then(result => {
-        console.log(result)
+        return event.reply(booksCarouselReply(result))
+      })
+    }
+
+    if (userMsg === '外匯相關新聞') {
+      newsHandler().then(result => {
+        return event.reply(newsCarouselReply(result))
       })
     }
   } catch (error) {
