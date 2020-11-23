@@ -1,11 +1,14 @@
 import axios from 'axios'
 import cheerio from 'cheerio'
 
-export const exchangeBankHandler = async () => {
+export const exchangeBankHandler = async (currencyAcronym, currency) => {
   try {
-    const bankDatas = []
+    const bankDatas = {
+      currency,
+      datas: []
+    }
 
-    const response = await axios.get('https://www.findrate.tw/USD/')
+    const response = await axios.get(`https://www.findrate.tw/${currencyAcronym}/`)
     const $ = cheerio.load(response.data)
     const items = $('table[border] tr') // 抓回資料最後多兩個空元素將其扣掉
 
@@ -16,7 +19,7 @@ export const exchangeBankHandler = async () => {
       const spotBuy = items.eq(i).find('.WordB').eq(2).text()
       const spotSell = items.eq(i).find('.WordB').eq(3).text()
 
-      bankDatas.push({
+      bankDatas.datas.push({
         bank,
         cashBuy,
         cashSell,

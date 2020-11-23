@@ -36,13 +36,14 @@ bot.on('message', async (event) => {
       exrateHandler(exrateKey).then(result => {
         const { exrate, updateTime } = result
         exrateData.currency = currencyName
+        exrateData.currencyAcronym = exrateKey === 'USDTWD' ? 'USD' : exrateKey.substr(3)
         exrateData.exrate = exrate
 
         return event.reply(exrateFlexReply(currencyName, exrate, updateTime))
       })
     }
 
-    if (positiveNum.test(userMsg) && exrateData) {
+    if (positiveNum.test(userMsg) && Object.keys(exrateData).length !== 0) {
       const money = numeral(userMsg)
       let moneyClone = money.clone()
       let exchangeResult = money.multiply(exrateData.exrate)
@@ -66,9 +67,10 @@ bot.on('message', async (event) => {
       })
     }
 
-    if (userMsg === '最佳換匯銀行') {
-      exchangeBankHandler().then(result => {
-        return event.reply(banksFlexReply(result))
+    if (userMsg === '最佳換匯銀行' && Object.keys(exrateData).length !== 0) {
+      exchangeBankHandler(exrateData.currencyAcronym, exrateData.currency).then(result => {
+        if (result.datas.length < 25) event.reply(banksFlexReply(result, 1))
+        else event.reply([banksFlexReply(result, 1), banksFlexReply(result, 2)])
       })
     }
   } catch (error) {

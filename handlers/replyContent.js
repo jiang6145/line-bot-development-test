@@ -487,7 +487,8 @@ export const newsCarouselReply = (newsDatas) => {
   return reply
 }
 
-export const banksFlexReply = (bankDatas) => {
+export const banksFlexReply = (bankDatas, page) => {
+  const { currency, datas } = bankDatas
   const reply = {
     type: 'flex',
     altText: 'this is a flex message',
@@ -507,7 +508,7 @@ export const banksFlexReply = (bankDatas) => {
                 contents: [
                   {
                     type: 'text',
-                    text: '美金 - 各銀行牌告匯率',
+                    text: `${currency} - 各銀行牌告匯率`,
                     size: 'xs',
                     weight: 'bold',
                     color: '#ffffff',
@@ -616,10 +617,11 @@ export const banksFlexReply = (bankDatas) => {
     }
   }
 
-  const length = reply.contents.body.contents.length - 1
+  const start = (page === 1) ? 0 : Math.round(datas.length / 2)
+  const end = (page === 1) ? Math.round(datas.length / 2) : datas.length
 
-  for (let i = 0; i < 30; i++) {
-    reply.contents.body.contents[length].contents.push(
+  for (let i = start; i < end; i++) {
+    reply.contents.body.contents[1].contents.push(
       {
         type: 'box',
         layout: 'horizontal',
@@ -630,7 +632,7 @@ export const banksFlexReply = (bankDatas) => {
             contents: [
               {
                 type: 'text',
-                text: bankDatas[i].bank,
+                text: datas[i].bank,
                 size: 'xs',
                 align: 'center',
                 wrap: true
@@ -649,7 +651,7 @@ export const banksFlexReply = (bankDatas) => {
             contents: [
               {
                 type: 'text',
-                text: bankDatas[i].cashBuy,
+                text: datas[i].cashBuy,
                 size: 'xs',
                 align: 'center',
                 wrap: true
@@ -668,7 +670,7 @@ export const banksFlexReply = (bankDatas) => {
             contents: [
               {
                 type: 'text',
-                text: bankDatas[i].cashSell,
+                text: datas[i].cashSell,
                 size: 'xs',
                 align: 'center',
                 wrap: true
@@ -687,7 +689,7 @@ export const banksFlexReply = (bankDatas) => {
             contents: [
               {
                 type: 'text',
-                text: bankDatas[i].spotBuy,
+                text: datas[i].spotBuy,
                 size: 'xs',
                 align: 'center',
                 wrap: true
@@ -706,7 +708,7 @@ export const banksFlexReply = (bankDatas) => {
             contents: [
               {
                 type: 'text',
-                text: bankDatas[i].spotSell,
+                text: datas[i].spotSell,
                 size: 'xs',
                 align: 'center',
                 wrap: true
