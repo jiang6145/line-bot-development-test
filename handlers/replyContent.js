@@ -507,7 +507,7 @@ export const banksFlexReply = (bankDatas) => {
                 contents: [
                   {
                     type: 'text',
-                    text: '各家銀行 - 美金牌告匯率',
+                    text: '美金 - 各銀行牌告匯率',
                     size: 'xs',
                     weight: 'bold',
                     color: '#ffffff',
@@ -516,9 +516,6 @@ export const banksFlexReply = (bankDatas) => {
                 ],
                 paddingTop: 'md',
                 paddingBottom: 'md'
-              },
-              {
-                type: 'separator'
               },
               {
                 type: 'box',
@@ -621,7 +618,7 @@ export const banksFlexReply = (bankDatas) => {
 
   const length = reply.contents.body.contents.length - 1
 
-  for (let i = 0; i < 31; i++) {
+  for (let i = 0; i < 30; i++) {
     reply.contents.body.contents[length].contents.push(
       {
         type: 'box',
@@ -635,7 +632,8 @@ export const banksFlexReply = (bankDatas) => {
                 type: 'text',
                 text: bankDatas[i].bank,
                 size: 'xs',
-                align: 'center'
+                align: 'center',
+                wrap: true
               }
             ],
             width: '20%',
@@ -643,7 +641,7 @@ export const banksFlexReply = (bankDatas) => {
           },
           {
             type: 'separator',
-            color: '#333333'
+            color: '#cccccc'
           },
           {
             type: 'box',
@@ -653,7 +651,8 @@ export const banksFlexReply = (bankDatas) => {
                 type: 'text',
                 text: bankDatas[i].cashBuy,
                 size: 'xs',
-                align: 'center'
+                align: 'center',
+                wrap: true
               }
             ],
             width: '20%',
@@ -661,7 +660,7 @@ export const banksFlexReply = (bankDatas) => {
           },
           {
             type: 'separator',
-            color: '#333333'
+            color: '#cccccc'
           },
           {
             type: 'box',
@@ -671,7 +670,8 @@ export const banksFlexReply = (bankDatas) => {
                 type: 'text',
                 text: bankDatas[i].cashSell,
                 size: 'xs',
-                align: 'center'
+                align: 'center',
+                wrap: true
               }
             ],
             width: '20%',
@@ -679,7 +679,7 @@ export const banksFlexReply = (bankDatas) => {
           },
           {
             type: 'separator',
-            color: '#333333'
+            color: '#cccccc'
           },
           {
             type: 'box',
@@ -689,7 +689,8 @@ export const banksFlexReply = (bankDatas) => {
                 type: 'text',
                 text: bankDatas[i].spotBuy,
                 size: 'xs',
-                align: 'center'
+                align: 'center',
+                wrap: true
               }
             ],
             width: '20%',
@@ -697,7 +698,7 @@ export const banksFlexReply = (bankDatas) => {
           },
           {
             type: 'separator',
-            color: '#333333'
+            color: '#cccccc'
           },
           {
             type: 'box',
@@ -707,13 +708,15 @@ export const banksFlexReply = (bankDatas) => {
                 type: 'text',
                 text: bankDatas[i].spotSell,
                 size: 'xs',
-                align: 'center'
+                align: 'center',
+                wrap: true
               }
             ],
             width: '20%',
             paddingAll: 'md'
           }
         ],
+        alignItems: 'center',
         backgroundColor: (i % 2 === 0) ? '#ffffff' : '#f1faee'
       }
     )
